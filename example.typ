@@ -51,6 +51,8 @@ $
 
 #roremu(100)
 
+#roremu(100) #footnote[#roremu(100)]
+
 = 応用課題
 
 #roremu(100)

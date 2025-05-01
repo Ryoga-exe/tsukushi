@@ -38,6 +38,22 @@
   show figure: it => pad(y: 1em, it)
   show figure.caption: it => pad(top: 0.5em, text(0.8em, it))
 
+  set footnote(numbering: sym.dagger + "1")
+  show footnote: it => {
+    set text(size: 1em)
+    it
+  }
+  show footnote.entry: it => {
+    set text(size: 0.85em)
+
+    grid(
+      columns: (auto, 1fr),
+      gutter: 0.75em,
+      numbering(sym.dagger + "1", ..counter(footnote).at(it.note.location())),
+      it.note.body
+    )
+  }
+
   align(center)[
     #block(
       text(
