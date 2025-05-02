@@ -1,4 +1,4 @@
-// Tsukushi, a minimal Typst v0.13 template for university coursework reports
+// Tsukushi, a minimal Typst v0.13 template for japanese university coursework reports
 
 #let tsukushi(
   title: "",
@@ -27,16 +27,29 @@
   )
   set text(font: font-serif, lang: lang)
 
+  show strong: set text(font: font-san, weight: 450)
+  set list(indent: 1.5em)
+  set enum(indent: 1.5em)
+  set terms(indent: 1.5em, separator: h(1em, weak: true))
+  show list: set block(spacing: 1.3em)
+  show enum: set block(spacing: 1.3em)
+  show terms: set block(spacing: 1.3em)
+
+  set heading(numbering: "1.")
   show heading: set text(font: font-san, weight: "medium", lang: lang)
-  show heading.where(level: 1): it => pad(top: 1em, bottom: 0.4em, it)
+  show heading: it => pad(top: 0.8em, bottom: 0.6em, it)
+
+  show figure: it => pad(y: 1em, it)
+  show figure.caption: it => pad(top: 0.5em, text(0.8em, it))
+
+  show math.equation.where(block: true): set block(spacing: 1.5em)
 
   set par(
     first-line-indent: (amount: 1em, all: true),
     justify: true,
+    spacing: 0.67em,
+    leading: 0.67em,
   )
-
-  show figure: it => pad(y: 1em, it)
-  show figure.caption: it => pad(top: 0.5em, text(0.8em, it))
 
   set footnote(numbering: sym.dagger + "1")
   show footnote: it => {
@@ -59,16 +72,17 @@
       text(
         font: font-san,
         size: 1.9em,
-        weight: 700,
+        weight: "semibold",
         title,
       ),
     )
     #if subtitle != "" {
       block(
+        spacing: 1.2em,
         text(
           font: font-san,
           size: 1.4em,
-          weight: 700,
+          weight: "semibold",
           subtitle,
         ),
       )
@@ -86,7 +100,7 @@
         ..authors.map(author => align(
           center,
           text[
-            *#author.name* \
+            #text(weight: "bold", author.name) \
             学籍番号：#author.id \
             所属：#author.affiliation
           ],
@@ -95,18 +109,20 @@
     }
   )
 
-
   align(
     center,
-    text(
-      size: 0.9em,
-      if deadline == none {
-        date.display(date-format)
-      } else [
-        締切日：#deadline.display(date-format) \
-        提出日：#date.display(date-format)
-      ],
-    ),
+    block(
+      spacing: 1.2em,
+      text(
+        size: 0.9em,
+        if deadline == none {
+          date.display(date-format)
+        } else [
+          締切日：#deadline.display(date-format) \
+          提出日：#date.display(date-format)
+        ],
+      ),
+    )
   )
 
   body
